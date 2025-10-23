@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AvatarCircle } from "./partials/avatars";
 import { BlurFadeText } from "./partials/blurfade";
-import { AnimatedListComponent } from "./partials/animated-lists";
-import { LineShadowTextComponent } from "./partials/shift-fast";
-import { StripedPatternComponent } from "./partials/striped-patterns";
 
 export default function Section() {
 
@@ -16,13 +13,33 @@ export default function Section() {
 
     const [avatars, setAvatars] = useState<Avatar[]>([]);
 
-    const fetchAvatars = async () => {
+   const fetchAvatars = async () => {
+    const token = process.env.GITHUB_TOKEN;
+    
+    const headers: HeadersInit = {
+        'Accept': 'application/vnd.github.v3+json',
+    };
+    
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`; // Using Bearer token format
+    }
+    
+    try {
         const avatars = await Promise.all(
             usernames.map(async (username) => {
-                const res = await fetch(`https://api.github.com/users/${username}`);
+                const res = await fetch(`https://api.github.com/users/${username}`, {
+                    headers: headers
+                });
+                
+                if (res.status === 403) {
+                    console.warn('Rate limit exceeded or token invalid');
+                }
+                
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch ${username}: ${res.status}`);
+                }
+                
                 const data = await res.json();
-
-                console.log(data);
                 return {
                     imageUrl: data.avatar_url,
                     profileUrl: data.html_url,
@@ -36,7 +53,10 @@ export default function Section() {
             })
         );
         setAvatars(avatars);
+    } catch (error) {
+        console.error('Error fetching avatars:', error);
     }
+}
 
     useEffect(() => {
         fetchAvatars();

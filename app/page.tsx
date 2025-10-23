@@ -39,7 +39,7 @@ export default function Home() {
 
       {/* CTA Section */}
 
-      <ContactUs />
+      {/* <ContactUs /> */}
 
 
       {/* Footer */}

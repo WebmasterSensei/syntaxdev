@@ -44,10 +44,10 @@ export default function ContactUs() {
     return (
         <>
             <div className="p-4" id="getstarted">
-                <div className="text-center p-20">
-                    <BlurFadeText title="Contact Us" subtitle="Feel free to contact us with your projects" />
+                <div className="text-center p-15">
+                   
                 </div>
-                <div className="grid lg:grid-cols-2 items-start gap-12 p-8 mx-auto max-w-6xl max-lg:max-w-2xl bg-linear-to-br from-slate-950/50 via-slate-950 to-blue-950/50 [box-shadow:0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-4xl mb-10">
+                <div className="grid lg:grid-cols-2 items-start gap-12 p-8 mx-auto max-w-6xl max-lg:max-w-2xl mb-10">
                     <div>
                         <h2 className="text-slate-200 text-3xl font-bold">SyntaxLab</h2>
                         <p className="text-[15px] text-white mt-4 leading-relaxed">Have some big idea or brand to develop and need help? Then reach out we'd love to hear about your project  and provide help.</p>
@@ -132,6 +132,9 @@ export default function ContactUs() {
                         </button>
                     </form>
 
+                </div>
+                   <div className="text-center p-15">
+                    <BlurFadeText title="Get in touch" subtitle="Feel free to contact us with your projects" />
                 </div>
             </div>
         </>

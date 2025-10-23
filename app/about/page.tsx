@@ -112,7 +112,9 @@ export default function About() {
                         <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
                             Let's collaborate and turn your vision into reality. We're here to help you succeed.
                         </p>
-                        <AnimatedShinyComponent text="Get in Touch" />
+                        <a href="/contact">
+                            <AnimatedShinyComponent text="Get in Touch" />
+                        </a>
                         {/* <button className="bg-linear-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-xl font-semibold hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/30">
                             Get in Touch
                         </button> */}

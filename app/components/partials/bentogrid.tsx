@@ -40,7 +40,7 @@ const features = [
             <>
                 <img
                     className="absolute w-full h-full "
-                    src="/projects/bankrs.png"
+                    src="/projects/bankrs.PNG"
                     alt="Background"
                 />
 
@@ -58,7 +58,7 @@ const features = [
         className: "col-span-3 lg:col-span-2 bg-linear-to-br from-blue-950 via-slate-950 to-blue-950 ",
         background: (
             <>
-                <img className="absolute w-full h-full" src="/projects/gc.png" alt="" />
+                <img className="absolute w-full h-full" src="/projects/gc.PNG" alt="" />
                 <div className="absolute inset-0 bg-slate-950/50 hover:bg-transparent" />
             </>
         ),
@@ -86,7 +86,7 @@ const features = [
         cta: "Learn more",
         background: (
             <>
-                <img className="absolute w-full h-full bg-cover" src="/projects/ccm.png" alt="" />
+                <img className="absolute w-full h-full bg-cover" src="/projects/ccm.PNG" alt="" />
                 <div className="absolute inset-0 bg-slate-950/50 hover:bg-transparent" />
             </>
         ),
@@ -100,7 +100,7 @@ const features = [
         cta: "Learn more",
         background: (
             <>
-                <img className="absolute w-full h-full bg-cover" src="/projects/bns.png" alt="" />
+                <img className="absolute w-full h-full bg-cover" src="/projects/bns.PNG" alt="" />
                 <div className="absolute inset-0 bg-slate-950/50 hover:bg-transparent" />
             </>
         ),
@@ -114,7 +114,7 @@ const features = [
         cta: "Learn more",
         background: (
             <>
-                <img className="absolute w-full h-full bg-cover" src="/projects/altu.png" alt="" />
+                <img className="absolute w-full h-full bg-cover" src="/projects/altu.PNG" alt="" />
                 <div className="absolute inset-0 bg-slate-950/50 hover:bg-transparent" />
             </>
         ),
@@ -128,7 +128,7 @@ const features = [
         className: "col-span-3 lg:col-span-2 bg-linear-to-br from-blue-950 via-slate-950 to-blue-950",
         background: (
             <>
-                <img className="absolute w-full h-full" src="/projects/var.png" alt="" />
+                <img className="absolute w-full h-full" src="/projects/var.PNG" alt="" />
                 <div className="absolute inset-0 bg-slate-950/50 hover:bg-transparent" />
             </>
         ),
