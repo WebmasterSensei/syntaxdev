@@ -42,14 +42,14 @@ export default function About() {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-950 via-slate-950 to-blue-950">
+        <div className="min-h-screen bg-linear-to-br from-blue-950 via-slate-950 to-blue-950">
             <Nav />
 
             {/* Hero Section */}
             <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-12">
                 <div className="max-w-7xl mx-auto">
 
-                    <VideoTextComponent text="SyntaXLab" />
+                    <VideoTextComponent text="SyntaXDev" />
 
                     <div className="max-w-4xl mx-auto text-center mb-16">
                         <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-8">
@@ -65,8 +65,8 @@ export default function About() {
                     {/* Stats Grid */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-32">
                         {stats.map((stat, idx) => (
-                            <div key={idx} className="bg-gradient-to-br from-slate-950/50 via-blue-950/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300 hover:border-cyan-500/50">
-                                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">
+                            <div key={idx} className="bg-linear-to-br from-slate-950/50 via-blue-950/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300 hover:border-cyan-500/50">
+                                <div className="text-4xl md:text-5xl font-bold bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">
                                     {stat.number}
                                 </div>
                                 <div className="text-slate-400 text-sm md:text-base">{stat.label}</div>
@@ -85,9 +85,9 @@ export default function About() {
                             {values.map((value, idx) => {
                                 const Icon = value.icon;
                                 return (
-                                    <div key={idx} className="group bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20">
+                                    <div key={idx} className="group bg-linear-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20">
                                         <div className="flex items-start gap-4">
-                                            <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl p-3 group-hover:from-cyan-500/30 group-hover:to-blue-500/30 transition-all duration-300">
+                                            <div className="bg-linear-to-br from-cyan-500/20 to-blue-500/20 rounded-xl p-3 group-hover:from-cyan-500/30 group-hover:to-blue-500/30 transition-all duration-300">
                                                 <Icon className="w-6 h-6 text-cyan-400" />
                                             </div>
                                             <div>
@@ -106,14 +106,14 @@ export default function About() {
                     <Section />
 
                     {/* CTA Section */}
-                    <div className="bg-gradient-to-r from-slate-950/50 to-blue-900/10 border border-slate-500/30 rounded-3xl p-12 text-center">
+                    <div className="bg-linear-to-r from-slate-950/50 to-blue-900/10 border border-slate-500/30 rounded-3xl p-12 text-center">
                         <Users className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Build Something Amazing?</h2>
                         <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
                             Let's collaborate and turn your vision into reality. We're here to help you succeed.
                         </p>
                         <AnimatedShinyComponent text="Get in Touch" />
-                        {/* <button className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-xl font-semibold hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/30">
+                        {/* <button className="bg-linear-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-xl font-semibold hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/30">
                             Get in Touch
                         </button> */}
                     </div>

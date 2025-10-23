@@ -66,10 +66,10 @@ export default function Hero() {
                             <p className="text-xl md:text-2xl text-white/90 mb-8 drop-shadow-lg">
                                 {slide.subtitle}
                             </p>
-                            <button className="group px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-purple-500 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-2 mx-auto">
+                            {/* <button className="group px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-purple-500 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center gap-2 mx-auto">
                                 Explore Now
                                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </div>

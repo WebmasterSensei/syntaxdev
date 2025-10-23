@@ -47,8 +47,8 @@ export default function Services() {
                     </div>
                     <div className="relative max-w-4xl mx-auto">
                         {/* Vertical Timeline Line */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-green-500 via-yellow-500 to-blue-500 hidden md:block">
-                            <div className="absolute inset-0 bg-gradient-to-b from-blue-900 via-blue-800 to-blue-700 animate-pulse"></div>
+                        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-linear-to-b from-green-500 via-yellow-500 to-blue-500 hidden md:block">
+                            <div className="absolute inset-0 bg-linear-to-b from-blue-900 via-blue-800 to-blue-700 animate-pulse"></div>
                         </div>
 
                         <div className="space-y-12">
@@ -96,7 +96,7 @@ export default function Services() {
 
                                             {/* Header */}
                                             <div className="flex items-center mb-4">
-                                                <div className={`w-12 h-12 bg-gradient-to-br from-${process.color}-500 to-${process.color}-600 rounded-xl flex items-center justify-center text-white font-bold text-lg mr-4 group-hover:scale-110 transition-transform duration-300`}>
+                                                <div className={`w-12 h-12 bg-linear-to-br from-${process.color}-500 to-${process.color}-600 rounded-xl flex items-center justify-center text-white font-bold text-lg mr-4 group-hover:scale-110 transition-transform duration-300`}>
                                                     <span className="text-xl">{process.icon}</span>
                                                 </div>
                                                 <div>
@@ -112,7 +112,7 @@ export default function Services() {
                                             <div className="mt-4 flex items-center">
                                                 <div className="w-full bg-gray-200 rounded-full h-2">
                                                     <div
-                                                        className={`bg-gradient-to-r from-${process.color}-500 to-${process.color}-600 h-2 rounded-full transition-all duration-1000`}
+                                                        className={`bg-linear-to-r from-${process.color}-500 to-${process.color}-600 h-2 rounded-full transition-all duration-1000`}
                                                         style={{ width: `${(index + 1) * 25}%` }}
                                                     ></div>
                                                 </div>

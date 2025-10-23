@@ -13,9 +13,9 @@ export default function ServiceGrid() {
             features: ["React Native", "Flutter", "Native Performance", "App Store Deployment"]
         },
         {
-            icon: "☁️",
-            title: "Cloud Services",
-            description: "Scalable cloud infrastructure and deployment solutions",
+            icon: "👀",
+            title: "Custom System Development",
+            description: " Need a tailor-made solution? I specialize in building modern web apps, APIs, and automation tools built for your business needs.",
             features: ["AWS/Azure", "DevOps", "CI/CD Pipelines", "Microservices"]
         }
     ];

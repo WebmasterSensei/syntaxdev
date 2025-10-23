@@ -1,10 +1,12 @@
 "use client";
 import { BlurFadeText } from "./partials/blurfade";
-import { useState } from "react";
+import { cache, useState } from "react";
+import { ConfettiComponent } from "./partials/confetti";
 
 export default function ContactUs() {
     const [form, setForm] = useState({ name: "", email: "", message: "" });
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState("Send Email");
+    const [isSending, setIsSending] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -12,24 +14,37 @@ export default function ContactUs() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setStatus("Sending...");
+        try {
+            setStatus("Sending... Please Wait");
+            // setIsSending(true);
 
-        const res = await fetch("/api/send", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json", // ✅ important!
-            },
-            body: JSON.stringify(form), // ✅ makes sure it's valid JSON
-        });
+            const res = await fetch("/api/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form),
+            });
 
-        const data = await res.json();
-        setStatus(data.message);
+            const data = await res.json();
+
+            if (data.success) {
+                setStatus("✅ Message Sent!");
+                // 🔁 reset form fields
+                setForm({ name: "", email: "", message: "" });
+                setIsSending(true);
+            } else {
+                setStatus("❌ Failed to send. Try again.");
+                setIsSending(false);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setStatus("⚠️ Something went wrong!");
+        }
     };
 
     return (
         <>
-            <div className="p-4">
-                <div className="text-center p-10">
+            <div className="p-4" id="getstarted">
+                <div className="text-center p-20">
                     <BlurFadeText title="Contact Us" subtitle="Feel free to contact us with your projects" />
                 </div>
                 <div className="grid lg:grid-cols-2 items-start gap-12 p-8 mx-auto max-w-6xl max-lg:max-w-2xl bg-linear-to-br from-slate-950/50 via-slate-950 to-blue-950/50 [box-shadow:0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-4xl mb-10">
@@ -50,7 +65,7 @@ export default function ContactUs() {
                                     </div>
                                     <a href="javascript:void(0)" className="text-sm ml-4">
                                         <small className="block text-slate-100">Mail</small>
-                                        <span className="text-blue-600 font-medium">syntaxlab@gmail.com</span>
+                                        <span className="text-blue-600 font-medium">syntaxlabdev@gmail.com</span>
                                     </a>
                                 </li>
                             </ul>
@@ -92,6 +107,8 @@ export default function ContactUs() {
                             </ul>
                         </div>
                     </div>
+                    {isSending && <ConfettiComponent />}
+
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <input type='text' placeholder='Name'
@@ -110,9 +127,11 @@ export default function ContactUs() {
                             onChange={handleChange}
                             className="w-full text-slate-100 rounded-md px-4 border border-gray-500 text-sm pt-2.5 outline-0 focus:border-blue-500"></textarea>
                         <button type='submit'
-                            className="text-white bg-blue-600 hover:bg-blue-700 rounded-md text-sm font-medium px-4 py-2.5 w-full cursor-pointer border-0 mt-2">Send message</button>
+                            className="text-white bg-blue-600 hover:bg-blue-700 rounded-md text-sm font-medium px-4 py-2.5 w-full cursor-pointer border-0 mt-2">
+                            {status}
+                        </button>
                     </form>
-                    {status && <p className="text-center text-sm text-gray-700 mt-3">{status}</p>}
+
                 </div>
             </div>
         </>

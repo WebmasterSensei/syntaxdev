@@ -1,12 +1,12 @@
 export default function Footer() {
     return (
-        <footer className="relative border-t border-white/10 bg-gradient-to-b from-gray-900 via-gray-950 to-black py-16">
+        <footer className="relative border-t border-white/10 bg-linear-to-b from-gray-900 via-gray-950 to-black py-16">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                     {/* Brand Section */}
                     <div className="lg:col-span-1">
-                        <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-3">
-                            SyntaXLab.
+                        <h2 className="text-3xl font-bold bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-3">
+                            SyntaXDev.
                         </h2>
                         <p className="text-sm text-gray-400 leading-relaxed">
                             Building the next generation of web experiences with cutting-edge technology and innovative solutions.
@@ -39,7 +39,7 @@ export default function Footer() {
                     <div>
                         <h3 className="text-white font-semibold mb-4">Connect With Us</h3>
                         <div className="grid grid-cols-2 gap-3">
-                            <a href="https://github.com/WebmasterSensei" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-white transition text-sm group">
+                            <a href="https://github.com/IT-Sysdev-2023" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-white transition text-sm group">
                                 <i className="ri-github-fill text-xl group-hover:scale-110 transition-transform"></i>
                                 <span>GitHub</span>
                             </a>
@@ -81,7 +81,7 @@ export default function Footer() {
             </div>
             
             {/* Subtle glow effect */}
-            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"></div>
+            <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-cyan-400/50 to-transparent"></div>
         </footer>
     )
 }

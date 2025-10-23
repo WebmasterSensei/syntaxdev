@@ -29,7 +29,7 @@ export default function Nav() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="text-2xl font-bold bg-linear-to-r from-blue-700 to-blue-800 bg-clip-text text-transparent">
-                        SyntaXLab.
+                        SyntaXDev.
                     </div>
 
                     <div className="hidden md:flex space-x-8">
@@ -40,9 +40,9 @@ export default function Nav() {
                         ))}
                     </div>
 
-                    <button className="hidden md:block px-6 py-2 bg-linear-to-r from-blue-500 to-blue-900 text-white rounded-full hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
+                    <a href="#getstarted"><button className="hidden md:block px-6 py-2 bg-linear-to-r from-blue-500 to-blue-900 text-white rounded-full hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
                         Get Started
-                    </button>
+                    </button></a>
 
                     <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-white">
                         {menuOpen ? <X size={24} /> : <Menu size={24} />}

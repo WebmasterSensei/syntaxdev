@@ -75,7 +75,7 @@ export default function Section() {
                                         alt="Team Member"
                                         className="w-full h-full rounded-full object-cover border-4 border-blue-500/50"
                                     />
-                                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500/20 to-transparent"></div>
+                                    <div className="absolute inset-0 rounded-full bg-linear-to-tr from-blue-500/20 to-transparent"></div>
                                 </div>
 
                                 <h3 className="text-xl font-bold text-white mb-2 text-center">

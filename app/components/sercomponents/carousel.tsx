@@ -7,7 +7,7 @@ export default function CarouselStory() {
         {
             year: "2020",
             title: "The Beginning",
-            description: "Founded in 2020, SyntaXLab. emerged from a simple belief: technology should empower, not complicate. What started as a small team of three developers in a garage has grown into a global force driving digital transformation.",
+            description: "Founded in 2020, SyntaXDev. emerged from a simple belief: technology should empower, not complicate. What started as a small team of three developers in a garage has grown into a global force driving digital transformation.",
             image: (
                 <>
                     <img className='w-96 h-64 rounded-xl' src="/carousel/synt1.jpg" alt="" />
@@ -30,7 +30,7 @@ export default function CarouselStory() {
             description: "Today, we're not just building software—we're crafting experiences that inspire, platforms that scale, and innovations that matter. Our journey continues with even bigger ambitions.",
             image: (
                 <>
-                    <img className='w-96 h-64 rounded-xl' src="/carousel/synt1.jpg" alt="" />
+                    <img className='w-96 h-64 rounded-xl' src="/carousel/synt3.jpg" alt="" />
                 </>
             )
         }
@@ -117,7 +117,7 @@ export default function CarouselStory() {
                         <div className="relative order-1 md:order-2">
                             <div className="bg-gradient-to-br from-slate-800/30 to-slate-900/30 backdrop-blur-sm border border-slate-700/50 rounded-3xl p-8 md:p-12">
                                 <p className="text-lg text-slate-300 leading-relaxed mb-6">
-                                    Founded in 2025, SyntaXLab. emerged from a simple belief: technology should empower, not complicate. What started as a small team of three developers in a garage has grown into a global force driving digital transformation.
+                                    Founded in 2025, SyntaXDev. emerged from a simple belief: technology should empower, not complicate. What started as a small team of three developers in a garage has grown into a global force driving digital transformation.
                                 </p>
                                 <p className="text-lg text-slate-300 leading-relaxed mb-6">
                                     We've worked with startups disrupting industries and enterprises reimagining their futures. Each project teaches us something new, and we channel those lessons into creating better solutions for our clients.
