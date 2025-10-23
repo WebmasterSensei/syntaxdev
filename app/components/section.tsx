@@ -40,6 +40,7 @@ export default function Section() {
                 }
                 
                 const data = await res.json();
+                
                 return {
                     imageUrl: data.avatar_url,
                     profileUrl: data.html_url,

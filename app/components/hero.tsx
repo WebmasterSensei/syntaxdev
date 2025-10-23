@@ -10,17 +10,17 @@ export default function Hero() {
 
     const slides = [
         {
-            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
+            image: "https://4kwallpapers.com/images/walls/thumbs/13681.png",
             title: "Innovation Meets Design",
             subtitle: "Transform your digital experience"
         },
         {
-            image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80",
+            image: "https://4kwallpapers.com/images/walls/thumbs_2t/1570.jpg",
             title: "Built for Tomorrow",
             subtitle: "Next-generation solutions"
         },
         {
-            image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
+            image: "https://4kwallpapers.com/images/walls/thumbs_3t/18078.jpg",
             title: "Seamless Performance",
             subtitle: "Experience the difference"
         }
@@ -45,7 +45,7 @@ export default function Hero() {
     };
 
     return (
-        <div className="relative h-screen overflow-hidden">
+        <div className="relative h-screen overflow-hidden">z
             {slides.map((slide, index) => (
                 <div
                     key={index}
@@ -103,9 +103,9 @@ export default function Hero() {
                     />
                 ))}
             </div>
-            <div className="fixed bottom-5 left-0 w-full z-50">
+            {/* <div className="fixed bottom-5 left-0 w-full z-50">
                 <Docks />
-            </div>
+            </div> */}
         </div>
     )
 }

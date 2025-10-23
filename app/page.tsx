@@ -5,6 +5,7 @@ import Features from './components/features';
 import Footer from './components/footer';
 import Hero from './components/hero';
 import Nav from './components/nav';
+import { AnimatedBeamComponent } from './components/partials/beam';
 import Partners from './components/partners';
 import Section from './components/section';
 import Services from './components/services';
@@ -40,6 +41,7 @@ export default function Home() {
       {/* CTA Section */}
 
       {/* <ContactUs /> */}
+      <AnimatedBeamComponent/>
 
 
       {/* Footer */}
