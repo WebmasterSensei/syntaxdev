@@ -6,7 +6,7 @@ export default function Footer() {
                     {/* Brand Section */}
                     <div className="lg:col-span-1">
                         <h2 className="text-3xl font-bold bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-3">
-                            SyntaXDev.
+                            NextDev.
                         </h2>
                         <p className="text-sm text-gray-400 leading-relaxed">
                             Building the next generation of web experiences with cutting-edge technology and innovative solutions.
