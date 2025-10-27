@@ -10,7 +10,7 @@ export default function Hero() {
 
     const slides = [
         {
-            image: "/carousel/bus.jpg",
+            image: "/carousel/bus1.jpg",
             title: "Innovation Meets Design",
             subtitle: "Transform your digital experience"
         },
