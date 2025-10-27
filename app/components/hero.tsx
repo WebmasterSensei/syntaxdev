@@ -10,17 +10,17 @@ export default function Hero() {
 
     const slides = [
         {
-            image: "https://4kwallpapers.com/images/walls/thumbs/13681.png",
+            image: "/carousel/bus.jpg",
             title: "Innovation Meets Design",
             subtitle: "Transform your digital experience"
         },
         {
-            image: "https://4kwallpapers.com/images/walls/thumbs_2t/1570.jpg",
+            image: "/carousel/bus2.jpg",
             title: "Built for Tomorrow",
             subtitle: "Next-generation solutions"
         },
         {
-            image: "https://4kwallpapers.com/images/walls/thumbs_3t/18078.jpg",
+            image: "/carousel/bus3.jpg",
             title: "Seamless Performance",
             subtitle: "Experience the difference"
         }
