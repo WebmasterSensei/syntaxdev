@@ -49,7 +49,7 @@ export default function About() {
             <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-12">
                 <div className="max-w-7xl mx-auto">
 
-                    <VideoTextComponent text="SyntaXDev" />
+                    <VideoTextComponent text="NextDev." />
 
                     <div className="max-w-4xl mx-auto text-center mb-16">
                         <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-8">

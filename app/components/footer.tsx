@@ -17,10 +17,10 @@ export default function Footer() {
                     <div>
                         <h3 className="text-white font-semibold mb-4">Quick Links</h3>
                         <ul className="space-y-3">
-                            <li><a href="#about" className="text-gray-400 hover:text-cyan-400 transition text-sm">About Us</a></li>
+                            <li><a href="/about" className="text-gray-400 hover:text-cyan-400 transition text-sm">About Us</a></li>
                             <li><a href="#services" className="text-gray-400 hover:text-cyan-400 transition text-sm">Services</a></li>
-                            <li><a href="#portfolio" className="text-gray-400 hover:text-cyan-400 transition text-sm">Portfolio</a></li>
-                            <li><a href="#contact" className="text-gray-400 hover:text-cyan-400 transition text-sm">Contact</a></li>
+                            {/* <li><a href="#portfolio" className="text-gray-400 hover:text-cyan-400 transition text-sm">Portfolio</a></li> */}
+                            <li><a href="/contact" className="text-gray-400 hover:text-cyan-400 transition text-sm">Contact</a></li>
                         </ul>
                     </div>
 
@@ -29,9 +29,9 @@ export default function Footer() {
                         <h3 className="text-white font-semibold mb-4">Resources</h3>
                         <ul className="space-y-3">
                             <li><a href="#blog" className="text-gray-400 hover:text-cyan-400 transition text-sm">Blog</a></li>
-                            <li><a href="#docs" className="text-gray-400 hover:text-cyan-400 transition text-sm">Documentation</a></li>
+                            {/* <li><a href="#docs" className="text-gray-400 hover:text-cyan-400 transition text-sm">Documentation</a></li>
                             <li><a href="#support" className="text-gray-400 hover:text-cyan-400 transition text-sm">Support</a></li>
-                            <li><a href="#privacy" className="text-gray-400 hover:text-cyan-400 transition text-sm">Privacy Policy</a></li>
+                            <li><a href="#privacy" className="text-gray-400 hover:text-cyan-400 transition text-sm">Privacy Policy</a></li> */}
                         </ul>
                     </div>
 
@@ -43,7 +43,7 @@ export default function Footer() {
                                 <i className="ri-github-fill text-xl group-hover:scale-110 transition-transform"></i>
                                 <span>GitHub</span>
                             </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-sky-400 transition text-sm group">
+                            {/* <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-sky-400 transition text-sm group">
                                 <i className="ri-twitter-x-line text-xl group-hover:scale-110 transition-transform"></i>
                                 <span>Twitter</span>
                             </a>
@@ -58,7 +58,7 @@ export default function Footer() {
                             <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-blue-500 transition text-sm group">
                                 <i className="ri-behance-fill text-xl group-hover:scale-110 transition-transform"></i>
                                 <span>Behance</span>
-                            </a>
+                            </a> */}
                             <a href="mailto:contact@nextdev.dev" className="flex items-center gap-2 text-gray-400 hover:text-emerald-400 transition text-sm group">
                                 <i className="ri-mail-fill text-xl group-hover:scale-110 transition-transform"></i>
                                 <span>Email</span>
@@ -73,9 +73,9 @@ export default function Footer() {
                         &copy; 2025 <span className="text-white font-semibold">NextDev.</span>. All rights reserved.
                     </p>
                     <div className="flex items-center gap-6 text-sm text-gray-500">
-                        <a href="#terms" className="hover:text-cyan-400 transition">Terms of Service</a>
+                        {/* <a href="#terms" className="hover:text-cyan-400 transition">Terms of Service</a>
                         <a href="#privacy" className="hover:text-cyan-400 transition">Privacy Policy</a>
-                        <a href="#cookies" className="hover:text-cyan-400 transition">Cookies</a>
+                        <a href="#cookies" className="hover:text-cyan-400 transition">Cookies</a> */}
                     </div>
                 </div>
             </div>
