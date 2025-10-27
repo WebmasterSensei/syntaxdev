@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     // Send email
     await resend.emails.send({
-      from: "syntaxlabdev@resend.dev",
+      from: "nextdev@resend.dev",
       to: "webmasteraturservice@gmail.com",
       subject: "📧 New Contact Form Submission",
       html: generateEmailTemplate(name, email, message),

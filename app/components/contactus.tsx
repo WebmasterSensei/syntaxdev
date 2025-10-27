@@ -49,7 +49,7 @@ export default function ContactUs() {
                 </div>
                 <div className="grid lg:grid-cols-2 items-start gap-12 p-8 mx-auto max-w-6xl max-lg:max-w-2xl mb-10">
                     <div>
-                        <h2 className="text-slate-200 text-3xl font-bold">SyntaxLab</h2>
+                        <h2 className="text-slate-200 text-3xl font-bold">NextDev.</h2>
                         <p className="text-[15px] text-white mt-4 leading-relaxed">Have some big idea or brand to develop and need help? Then reach out we'd love to hear about your project  and provide help.</p>
                         <div className="mt-12">
                             <h2 className="text-slate-100 text-base font-semibold">Email</h2>
@@ -65,7 +65,7 @@ export default function ContactUs() {
                                     </div>
                                     <a href="javascript:void(0)" className="text-sm ml-4">
                                         <small className="block text-slate-100">Mail</small>
-                                        <span className="text-blue-600 font-medium">syntaxlabdev@gmail.com</span>
+                                        <span className="text-blue-600 font-medium">nextdev@gmail.com</span>
                                     </a>
                                 </li>
                             </ul>

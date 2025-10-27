@@ -59,7 +59,7 @@ export default function Footer() {
                                 <i className="ri-behance-fill text-xl group-hover:scale-110 transition-transform"></i>
                                 <span>Behance</span>
                             </a>
-                            <a href="mailto:contact@syntaxlab.dev" className="flex items-center gap-2 text-gray-400 hover:text-emerald-400 transition text-sm group">
+                            <a href="mailto:contact@nextdev.dev" className="flex items-center gap-2 text-gray-400 hover:text-emerald-400 transition text-sm group">
                                 <i className="ri-mail-fill text-xl group-hover:scale-110 transition-transform"></i>
                                 <span>Email</span>
                             </a>
@@ -70,7 +70,7 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-sm text-gray-500">
-                        &copy; 2025 <span className="text-white font-semibold">SyntaXLab</span>. All rights reserved.
+                        &copy; 2025 <span className="text-white font-semibold">NextDev.</span>. All rights reserved.
                     </p>
                     <div className="flex items-center gap-6 text-sm text-gray-500">
                         <a href="#terms" className="hover:text-cyan-400 transition">Terms of Service</a>
