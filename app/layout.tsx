@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Next Developers",
   description: "We're a team of passionate creators, engineers, and innovators building the future of digital experiences.",
+icons: {
+    icon: "/images/nextlogo.svg",
+}
 };
 
 export default function RootLayout({
