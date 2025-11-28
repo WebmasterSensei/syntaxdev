@@ -13,51 +13,51 @@ export default function Section() {
 
     const [avatars, setAvatars] = useState<Avatar[]>([]);
 
-   const fetchAvatars = async () => {
-    const token = process.env.GITHUB_TOKEN;
-    
-    const headers: HeadersInit = {
-        'Accept': 'application/vnd.github.v3+json',
-    };
-    
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`; // Using Bearer token format
+    const fetchAvatars = async () => {
+        const token = process.env.GITHUB_TOKEN;
+
+        const headers: HeadersInit = {
+            'Accept': 'application/vnd.github.v3+json',
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`; // Using Bearer token format
+        }
+
+        try {
+            const avatars = await Promise.all(
+                usernames.map(async (username) => {
+                    const res = await fetch(`https://api.github.com/users/${username}`, {
+                        headers: headers
+                    });
+
+                    if (res.status === 403) {
+                        console.warn('Rate limit exceeded or token invalid');
+                    }
+
+                    if (!res.ok) {
+                        throw new Error(`Failed to fetch ${username}: ${res.status}`);
+                    }
+
+                    const data = await res.json();
+
+                    return {
+                        imageUrl: data.avatar_url,
+                        profileUrl: data.html_url,
+                        followers: data.followers,
+                        following: data.following,
+                        html_url: data.html_url,
+                        name: data.name,
+                        bio: data.bio,
+                        blog: data.blog,
+                    };
+                })
+            );
+            setAvatars(avatars);
+        } catch (error) {
+            console.error('Error fetching avatars:', error);
+        }
     }
-    
-    try {
-        const avatars = await Promise.all(
-            usernames.map(async (username) => {
-                const res = await fetch(`https://api.github.com/users/${username}`, {
-                    headers: headers
-                });
-                
-                if (res.status === 403) {
-                    console.warn('Rate limit exceeded or token invalid');
-                }
-                
-                if (!res.ok) {
-                    throw new Error(`Failed to fetch ${username}: ${res.status}`);
-                }
-                
-                const data = await res.json();
-                
-                return {
-                    imageUrl: data.avatar_url,
-                    profileUrl: data.html_url,
-                    followers: data.followers,
-                    following: data.following,
-                    html_url: data.html_url,
-                    name: data.name,
-                    bio: data.bio,
-                    blog: data.blog,
-                };
-            })
-        );
-        setAvatars(avatars);
-    } catch (error) {
-        console.error('Error fetching avatars:', error);
-    }
-}
 
     useEffect(() => {
         fetchAvatars();
@@ -66,9 +66,9 @@ export default function Section() {
     return (
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
             <div className="absolute inset-0 bg-linear-to-r from-slate-950 via-sky-500 to-indigo-600 blur-3xl opacity-30 rounded-3xl"></div>
-           
+
             <div className="relative bg-linear-to-r from-slate-950/50 rounded-3xl p-12 md:p-16 text-center border-none shadow-1xl">
-            {/* <StripedPatternComponent /> */}
+                {/* <StripedPatternComponent /> */}
                 <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
                     We are ready to build the future
                 </h2>
@@ -102,9 +102,37 @@ export default function Section() {
                                 <h3 className="text-xl font-bold text-white mb-2 text-center">
                                     {item.name || "Unknown Dev"}
                                 </h3>
-                                <p className="text-blue-300 text-sm mb-3 text-center">
-                                    {item.role || "Full Stack Developer"}
-                                </p>
+                                {item.name == 'Kent Jey Abarquez' && (
+                                    <>
+                                        <p className="text-blue-300 text-sm mb-3 text-center">
+                                            <p>{item.role || "COO|Co-Founder"}</p>
+                                            <p>{item.role || "Full Stack Engineer"}</p>
+                                        </p>
+                                    </>
+
+                                )}
+                                {item.name == 'harvey_b' && (
+                                    <p className="text-blue-300 text-sm mb-3 text-center">
+                                        {item.role || "CTO|Co-Founder"}
+                                        <p>{item.role || "Full Stack Engineer"}</p>
+                                    </p>
+                                )}
+                                {item.name == 'Jessan P.' && (
+                                    <p className="text-blue-300 text-sm mb-3 text-center">
+                                        {item.role || "CEO|Founder"}
+                                        <p>{item.role || "Full Stack Engineer"}</p>
+                                    </p>
+                                )}
+                                {item.name == 'Teofredo M. Gamale' && (
+                                    <p className="text-blue-300 text-sm mb-3 text-center">
+                                        {item.role || "Full Stack Engineer"}
+                                    </p>
+                                )}
+                                {item.name == 'Maria Leonilyn Naive' && (
+                                    <p className="text-blue-300 text-sm mb-3 text-center">
+                                        {item.role || "Full Stack Engineer"}
+                                    </p>
+                                )}
 
                                 <p className="text-gray-400 text-sm leading-relaxed text-center">
                                     {item.bio || "No bio available."}
