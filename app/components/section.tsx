@@ -106,7 +106,7 @@ export default function Section() {
                                     <>
                                         <p className="text-blue-300 text-sm mb-3 text-center">
                                             <p>{item.role || "COO|Co-Founder"}</p>
-                                            <p>{item.role || "Full Stack Engineer"}</p>
+                                            <p>{item.role || "Full Stack Software Engineer"}</p>
                                         </p>
                                     </>
 
@@ -114,23 +114,23 @@ export default function Section() {
                                 {item.name == 'harvey_b' && (
                                     <p className="text-blue-300 text-sm mb-3 text-center">
                                         {item.role || "CTO|Co-Founder"}
-                                        <p>{item.role || "Full Stack Engineer"}</p>
+                                        <p>{item.role || "Full Stack Software Engineer"}</p>
                                     </p>
                                 )}
                                 {item.name == 'Jessan P.' && (
                                     <p className="text-blue-300 text-sm mb-3 text-center">
                                         {item.role || "CEO|Founder"}
-                                        <p>{item.role || "Full Stack Engineer"}</p>
+                                        <p>{item.role || "Full Stack Software Engineer"}</p>
                                     </p>
                                 )}
                                 {item.name == 'Teofredo M. Gamale' && (
                                     <p className="text-blue-300 text-sm mb-3 text-center">
-                                        {item.role || "Full Stack Engineer"}
+                                        {item.role || "Full Stack Software Engineer"}
                                     </p>
                                 )}
                                 {item.name == 'Maria Leonilyn Naive' && (
                                     <p className="text-blue-300 text-sm mb-3 text-center">
-                                        {item.role || "Full Stack Engineer"}
+                                        {item.role || "Full Stack Software Engineer"}
                                     </p>
                                 )}
 
