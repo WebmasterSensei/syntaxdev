@@ -9,7 +9,7 @@ export default function Section() {
         profileUrl: string;
     }
 
-    const usernames = ["WebmasterSensei", "San103", "hartzy0204", "gamaleCoding", "mariadevhub"];
+    const usernames = ["WebmasterSensei", "San103", "hartzy0204", "gamaleCoding", "mariadevhub", 'systpro03'];
 
     const [avatars, setAvatars] = useState<Avatar[]>([]);
 
