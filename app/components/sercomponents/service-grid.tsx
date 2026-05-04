@@ -23,7 +23,7 @@ export default function ServiceGrid() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((service, index) => (
-                <div key={index} className="bg-linear-to-br from-slate-950 via-blue-950 to-slate-950 rounded-[1rem] p-8 shadow-lg border border-blue-900 hover:shadow-xl transition-all duration-300 group">
+                <div key={index} className="bg-linear-to-br from-black via-slate-950 to-slate-900 rounded-[1rem] p-8 shadow-lg  hover:shadow-xl transition-all duration-300 group">
                     <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
                         {service.icon}
                     </div>

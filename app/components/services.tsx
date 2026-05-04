@@ -90,7 +90,7 @@ export default function Services() {
 
                                     {/* Content Card */}
                                     <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
-                                        <div className=" bg-linear-to-br from-slate-950 via-slate-900 to-blue-950 rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group-hover:transform group-hover:-translate-y-1 relative overflow-hidden">
+                                        <div className=" bg-linear-to-br from-black via-slate-950 to-slate-900 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:transform group-hover:-translate-y-1 relative overflow-hidden">
                                             {/* Gradient Accent */}
                                             {/* <div className={`absolute top-0 left-0 w-1 h-full bg-${process.color}-500`}></div> */}
 

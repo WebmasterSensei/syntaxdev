@@ -13,7 +13,7 @@ import Services from './components/services';
 export default function Home() {
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-950 via-slate-950 to-blue-950 dark:from-slate-900 dark:to-black">
+    <div className="min-h-screen bg-linear-to-br from-black via-slate-950 to-slate-950 dark:from-slate-900 dark:to-black">
       {/* Navigation */}
 
       {/* <StripedPatternComponent /> */}
