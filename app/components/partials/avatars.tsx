@@ -25,6 +25,10 @@ const avatars = [
         imageUrl: "https://avatars.githubusercontent.com/u/144196097?v=4",
         profileUrl: "https://github.com/systpro03",
     },
+    {
+        imageUrl: "https://avatars.githubusercontent.com/u/229242871?v=4",
+        profileUrl: "https://github.com/itzmegelo",
+    },
 ]
 
 

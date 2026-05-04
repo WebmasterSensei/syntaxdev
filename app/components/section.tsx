@@ -15,7 +15,8 @@ export default function Section() {
         "hartzy0204",
         "gamaleCoding",
         "mariadevhub",
-        "systpro03"
+        "systpro03",
+        "itzmegelo"
     ];
 
     const [avatars, setAvatars] = useState<Avatar[]>([]);
