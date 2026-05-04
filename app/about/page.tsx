@@ -42,7 +42,7 @@ export default function About() {
     ];
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-blue-950 via-slate-950 to-blue-950">
+        <div className="min-h-screen bg-linear-to-br from-black via-slate-950 to-slate-950 dark:from-slate-900 dark:to-black">
             <Nav />
 
             {/* Hero Section */}
