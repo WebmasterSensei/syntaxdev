@@ -1,6 +1,15 @@
 "use client"
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { gsap, useGSAP } from "./partials/gsap";
+import {
+    AuroraBackground,
+    GlassParticle,
+    LiquidBlob,
+    LiquidGlassCard,
+    AMBIENT_PATHS,
+    WASH_PATHS,
+} from "./partials/liquid-glass";
 
 const SLIDES = [
     {
@@ -42,6 +51,147 @@ function preloadImage(url: string): Promise<void> {
     });
 }
 
+function SlideContent({ slide, index }: { slide: (typeof SLIDES)[number]; index: number }) {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useGSAP(
+        () => {
+            const el = ref.current;
+            if (!el) return;
+            if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+                gsap.set(el, { autoAlpha: 1 });
+                gsap.set([el.querySelector(".sc-accent"), el.querySelector(".sc-subtitle"), el.querySelector(".sc-title"), el.querySelector(".sc-cta")], { autoAlpha: 1 });
+                return;
+            }
+            const tl = gsap.timeline({ delay: 0.2 });
+            tl.fromTo(
+                el,
+                { autoAlpha: 0 },
+                { autoAlpha: 1, duration: 0.4, ease: "power2.out" }
+            )
+                .fromTo(
+                    el.querySelector(".sc-accent"),
+                    { scaleX: 0 },
+                    { scaleX: 1, duration: 0.9, ease: "power3.inOut" },
+                    0.05
+                )
+                .fromTo(
+                    el.querySelector(".sc-subtitle"),
+                    { autoAlpha: 0, y: 16 },
+                    { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out" },
+                    0.1
+                )
+                .fromTo(
+                    el.querySelector(".sc-title"),
+                    { autoAlpha: 0, y: 28, filter: "blur(8px)" },
+                    { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power4.out" },
+                    0.15
+                )
+                .fromTo(
+                    el.querySelector(".sc-cta"),
+                    { autoAlpha: 0, y: 18 },
+                    { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out" },
+                    0.3
+                );
+        },
+        { scope: ref, dependencies: [index] }
+    );
+
+    return (
+        <div ref={ref} className="opacity-0">
+            {/* Accent bar */}
+            <div
+                className="sc-accent my-5 h-[3px] w-12 origin-left"
+                style={{ background: slide.accent }}
+            />
+
+            {/* Subtitle */}
+            <p
+                className="sc-subtitle mb-3 text-xs uppercase tracking-[0.25em] text-white/70"
+            >
+                {slide.subtitle}
+            </p>
+
+            {/* Title */}
+            <h1
+                className="sc-title glass-text font-bold leading-[1.05]"
+                style={{
+                    fontSize: "clamp(2.4rem, 6vw, 4.6rem)",
+                    maxWidth: "640px",
+                }}
+            >
+                {slide.title}
+            </h1>
+
+            {/* CTA */}
+            <div className="sc-cta mt-8">
+                <button
+                    className="group relative overflow-hidden rounded-full border px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] transition-colors duration-300"
+                    style={{ borderColor: slide.accent, color: slide.accent, letterSpacing: "0.2em" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = slide.accent)}
+                >
+                    <span
+                        className="absolute inset-0 origin-left scale-x-0 bg-white/10 transition-transform duration-300 group-hover:scale-x-100"
+                        style={{ boxShadow: `inset 0 0 0 1px ${slide.accent}55` }}
+                    />
+                    <span className="relative flex items-center gap-2">
+                        Explore Now
+                        <ChevronRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
+                </button>
+            </div>
+        </div>
+    );
+}
+
+/* Bottom "liquid" wave that spills into the page background */
+function LiquidDivider() {
+    const ref = useRef<HTMLDivElement>(null);
+    useGSAP(
+        () => {
+            const el = ref.current;
+            if (!el || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+            gsap.to(el, { xPercent: -50, duration: 22, ease: "none", repeat: -1 });
+        },
+        { scope: ref }
+    );
+    return (
+        <div className="absolute inset-x-0 bottom-0 z-30 h-28 pointer-events-none overflow-hidden" aria-hidden>
+            <div ref={ref} className="absolute -inset-x-0 top-0 flex h-28 w-[200%]">
+                <Wave fill="rgba(2,6,23,0.55)" />
+                <Wave fill="#020617" />
+            </div>
+        </div>
+    );
+}
+
+function Wave({ fill }: { fill: string }) {
+    const pathRef = useRef<SVGPathElement>(null);
+    useGSAP(
+        () => {
+            const el = pathRef.current;
+            if (!el || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+            gsap.fromTo(
+                el,
+                { attr: { d: WAVE_IN } },
+                { attr: { d: WAVE_OUT }, duration: 9, ease: "sine.inOut", repeat: -1, yoyo: true }
+            );
+        },
+        { scope: pathRef }
+    );
+    return (
+        <svg viewBox="0 0 2880 112" preserveAspectRatio="none" className="h-full w-1/2 shrink-0">
+            <path ref={pathRef} d={WAVE_IN} fill={fill} style={{ filter: "blur(2px)" }} />
+        </svg>
+    );
+}
+
+const WAVE_IN =
+    "M0,60 C240,28 480,112 720,96 C960,80 1200,20 1440,36 C1680,52 1920,104 2160,92 C2400,80 2640,48 2880,60 L2880,112 L0,112 Z";
+const WAVE_OUT =
+    "M0,88 C240,104 480,40 720,52 C960,64 1200,108 1440,100 C1680,92 1920,52 2160,68 C2400,84 2640,96 2880,72 L2880,112 L0,112 Z";
+
 export default function Hero() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [prevSlideIndex, setPrevSlideIndex] = useState<number | null>(null);
@@ -51,6 +201,13 @@ export default function Hero() {
     );
     const [entered, setEntered] = useState(false);
     const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+    const rootRef = useRef<HTMLDivElement>(null);
+    const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
+    const washPathRef = useRef<SVGPathElement | null>(null);
+    const washSvgRef = useRef<SVGSVGElement | null>(null);
+    const shineRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const markReady = (index: number) =>
@@ -74,6 +231,7 @@ export default function Hero() {
         return () => {
             if (autoPlayRef.current) clearInterval(autoPlayRef.current);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAutoPlaying]);
 
     function goToSlide(indexOrUpdater: number | ((prev: number) => number)) {
@@ -100,198 +258,242 @@ export default function Hero() {
 
     const slide = SLIDES[currentSlide];
 
-    return (
-        <div className="relative h-screen w-full overflow-hidden bg-black">
+    useGSAP(
+        () => {
+            if (!entered) return;
+            const root = rootRef.current;
+            if (!root) return;
 
+            // Cross-fade the slides
+            SLIDES.forEach((_, i) => {
+                const layer = layerRefs.current[i];
+                if (!layer) return;
+                gsap.to(layer, {
+                    autoAlpha: i === currentSlide ? 1 : 0,
+                    duration: 1.1,
+                    ease: "power2.inOut",
+                });
+            });
+
+            // Ken Burns drift on the active photo
+            imgRefs.current.forEach((img, i) => {
+                if (!img) return;
+                gsap.killTweensOf(img);
+                if (i === currentSlide) {
+                    gsap.fromTo(img, { scale: 1.05 }, { scale: 1.14, duration: 7, ease: "none" });
+                }
+            });
+
+            // A droplet of liquid glass pours across the frame
+            const path = washPathRef.current;
+            const svg = washSvgRef.current;
+            if (path && svg && !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+                gsap.killTweensOf(path);
+                gsap.killTweensOf(svg);
+                gsap.set(path, { attr: { d: WASH_PATHS.small } });
+                gsap.set(svg, { autoAlpha: 0.9 });
+                gsap.timeline()
+                    .to(path, { attr: { d: WASH_PATHS.cover }, duration: 1.5, ease: "power2.in" }, 0)
+                    .to(svg, { autoAlpha: 0, duration: 0.7, ease: "power2.out" }, 1.1);
+            }
+
+            // Radial "shine" flicker to accent color on each transition
+            if (shineRef.current && !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+                gsap.killTweensOf(shineRef.current);
+                gsap.fromTo(
+                    shineRef.current,
+                    { autoAlpha: 0.5 },
+                    { autoAlpha: 0, duration: 1.6, ease: "power2.out" }
+                );
+            }
+        },
+        { scope: rootRef, dependencies: [currentSlide, entered] }
+    );
+
+    return (
+        <div ref={rootRef} className="relative h-screen w-full overflow-hidden bg-[#020617]">
+            {/* Ambient liquid blobs + aurora light */}
+            <AuroraBackground />
+            <LiquidBlob
+                paths={AMBIENT_PATHS}
+                className="absolute -right-[22%] -top-[18%] h-[80vmax] w-[80vmax] text-white/[0.05]"
+            />
+            <LiquidBlob
+                paths={AMBIENT_PATHS}
+                duration={12}
+                className="absolute -bottom-[28%] -left-[20%] h-[70vmax] w-[70vmax] text-white/[0.05]"
+            />
+
+            {/* Floating glass droplets */}
+            <GlassParticle className="left-[12%] top-[22%] h-5 w-5" />
+            <GlassParticle className="left-[22%] top-[68%] h-3 w-3" drift={18} />
+            <GlassParticle className="right-[14%] top-[30%] h-4 w-4" drift={30} />
 
             {/* Slide layers */}
             {SLIDES.map((s, index) => (
                 <div
                     key={index}
                     className="absolute inset-0"
+                    ref={(el) => { layerRefs.current[index] = el; }}
                     style={{
                         opacity: index === currentSlide ? 1 : 0,
-                        transition: "opacity 1.2s cubic-bezier(0.4,0,0.2,1)",
-                        zIndex: index === currentSlide ? 2 : index === prevSlideIndex ? 1 : 0,
+                        zIndex: index === currentSlide ? 3 : index === prevSlideIndex ? 2 : 1,
                     }}
                 >
-                    {/* Cinematic gradient overlays */}
+                    {/* Frosted cinematic overlays */}
                     <div
                         className="absolute inset-0 z-10"
                         style={{
                             background:
-                                "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.0) 30%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.85) 100%)",
+                                "linear-gradient(to top, rgba(2,6,23,0.92) 0%, rgba(2,6,23,0.35) 45%, rgba(2,6,23,0.1) 75%, rgba(2,6,23,0.3) 100%)",
                         }}
                     />
                     <div
                         className="absolute inset-0 z-10"
                         style={{
-                            background:
-                                "linear-gradient(to right, rgba(0,0,0,0.45) 0%, transparent 60%)",
+                            background: `radial-gradient(120% 90% at 18% 82%, ${s.accent}26 0%, transparent 55%)`,
+                            mixBlendMode: "screen",
                         }}
                     />
-                    {/* Ken Burns zoom effect on active slide */}
+                    <div
+                        className="absolute inset-0 z-10"
+                        style={{
+                            backdropFilter: "blur(1px) saturate(1.15)",
+                            WebkitBackdropFilter: "blur(1px) saturate(1.15)",
+                        }}
+                    />
                     <img
+                        ref={(el) => { imgRefs.current[index] = el; }}
                         src={s.image}
                         alt={s.title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        style={{
-                            transform: index === currentSlide ? "scale(1.06)" : "scale(1.0)",
-                            transition: "transform 6s ease-out",
-                            transformOrigin: "center center",
-                        }}
+                        className="absolute inset-0 h-full w-full object-cover will-change-transform"
+                        style={{ transform: "scale(1.05)" }}
                     />
                 </div>
             ))}
 
-            {/* Slide number ticker */}
-            <div
-                className="absolute top-8 right-8 z-30 flex items-end gap-1"
-                style={{ opacity: entered ? 1 : 0, transition: "opacity 1s 0.5s" }}
+            {/* Liquid glass wash pouring across the frame on each transition */}
+            <svg
+                ref={washSvgRef}
+                className="pointer-events-none absolute inset-0 z-[5] h-full w-full opacity-0"
+                preserveAspectRatio="none"
+                aria-hidden
             >
-                <span
-                    className="text-white font-light"
-                    style={{
-                        fontSize: "2.5rem",
-                        lineHeight: 1,
-                        color: slide.accent,
-                        transition: "color 0.8s",
-                    }}
-                >
-                    {String(currentSlide + 1).padStart(2, "0")}
-                </span>
-                <span className="text-white/40 text-sm mb-1">/ {String(SLIDES.length).padStart(2, "0")}</span>
+                <path
+                    ref={washPathRef}
+                    d={WASH_PATHS.small}
+                    fill={slide.accent}
+                    opacity={0.18}
+                    style={{ filter: "blur(60px)" }}
+                />
+            </svg>
+
+            {/* Radial shine that flickers with each slide */}
+            <div
+                ref={shineRef}
+                className="pointer-events-none absolute left-1/2 top-1/2 z-[6] h-[80vmax] w-[80vmax] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0"
+                style={{
+                    background: `radial-gradient(circle, ${slide.accent}14 0%, transparent 45%)`,
+                    mixBlendMode: "screen",
+                }}
+                aria-hidden
+            />
+
+            {/* Slide counter */}
+            <div className="absolute right-6 top-24 z-30 flex items-end gap-2 md:right-10">
+                <LiquidGlassCard className="rounded-full px-4 py-2.5">
+                    <span
+                        className="text-2xl font-light leading-none md:text-3xl"
+                        style={{ color: slide.accent }}
+                    >
+                        {String(currentSlide + 1).padStart(2, "0")}
+                    </span>
+                    <span className="mb-0.5 text-xs text-white/40">
+                        / {String(SLIDES.length).padStart(2, "0")}
+                    </span>
+                </LiquidGlassCard>
             </div>
 
-            {/* Main content */}
-            <div
-                className="absolute inset-0 z-20 flex flex-col justify-end pb-24 pl-10 md:pl-20"
-                style={{ pointerEvents: "none" }}
-            >
-                {/* Accent bar */}
-                <div
-                    style={{
-                        width: entered ? "48px" : "0px",
-                        height: "3px",
-                        background: slide.accent,
-                        transition: "width 0.8s 0.3s cubic-bezier(0.4,0,0.2,1), background 0.8s",
-                        marginBottom: "1.25rem",
-                    }}
-                />
-
-                {/* Subtitle */}
-                <p
-                    className="text-white/70 uppercase tracking-widest text-xs mb-3"
-                    style={{
-                        letterSpacing: "0.25em",
-                        opacity: entered ? 1 : 0,
-                        transform: entered ? "translateY(0)" : "translateY(12px)",
-                        transition: "opacity 0.8s 0.4s, transform 0.8s 0.4s",
-                    }}
-                >
-                    {slide.subtitle}
-                </p>
-
-                {/* Title */}
-                <h1
-                    className="text-white font-bold leading-none"
-                    style={{
-                        fontSize: "clamp(2.5rem, 7vw, 5.5rem)",
-                        opacity: entered ? 1 : 0,
-                        transform: entered ? "translateY(0)" : "translateY(20px)",
-                        transition: "opacity 0.9s 0.25s, transform 0.9s 0.25s",
-                        textShadow: "0 4px 32px rgba(0,0,0,0.5)",
-                        maxWidth: "700px",
-                    }}
-                >
-                    {slide.title}
-                </h1>
-
-                {/* CTA */}
-                <div
-                    style={{
-                        marginTop: "2rem",
-                        opacity: entered ? 1 : 0,
-                        transform: entered ? "translateY(0)" : "translateY(12px)",
-                        transition: "opacity 0.8s 0.6s, transform 0.8s 0.6s",
-                        pointerEvents: "all",
-                    }}
-                >
-                    <button
-                        className="group relative overflow-hidden px-8 py-3 text-sm uppercase tracking-widest font-medium border"
-                        style={{
-                            borderColor: slide.accent,
-                            color: slide.accent,
-                            background: "transparent",
-                            letterSpacing: "0.2em",
-                            transition: "color 0.4s, border-color 0.8s",
-                        }}
-                        onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.color = "#000";
-                        }}
-                        onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.color = slide.accent;
-                        }}
+            {/* Main content — frosted glass panel */}
+            <div className="absolute inset-x-0 bottom-32 z-20 md:bottom-36">
+                <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-16">
+                    <LiquidGlassCard
+                        sheen
+                        className="max-w-xl rounded-[2rem] p-7 md:p-10"
                     >
-                        <span
-                            className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-                            style={{ background: slide.accent }}
-                        />
-                        <span className="relative">Explore Now</span>
-                    </button>
+                        <SlideContent key={currentSlide} slide={slide} index={currentSlide} />
+                    </LiquidGlassCard>
                 </div>
             </div>
 
             {/* Side navigation */}
-            <div className="absolute right-8 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3">
+            <div className="absolute right-6 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-3 md:flex md:right-10">
                 <button
                     onClick={handlePrev}
                     aria-label="Previous slide"
-                    className="w-10 h-10 flex items-center justify-center border border-white/30 text-white hover:border-white hover:bg-white/10 transition-all duration-300"
-                    style={{ backdropFilter: "blur(6px)" }}
+                    className="glass-card flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform duration-300 hover:scale-110"
                 >
                     <ChevronLeft size={18} />
                 </button>
                 <button
                     onClick={handleNext}
                     aria-label="Next slide"
-                    className="w-10 h-10 flex items-center justify-center border border-white/30 text-white hover:border-white hover:bg-white/10 transition-all duration-300"
-                    style={{ backdropFilter: "blur(6px)" }}
+                    className="glass-card flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform duration-300 hover:scale-110"
                 >
                     <ChevronRight size={18} />
                 </button>
             </div>
 
-            {/* Bottom progress indicators */}
-            <div className="absolute bottom-8 left-10 md:left-20 z-30 flex gap-4 items-center">
-                {SLIDES.map((_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => {
-                            setIsAutoPlaying(false);
-                            goToSlide(index);
-                        }}
-                        aria-label={`Go to slide ${index + 1}`}
-                        className="relative overflow-hidden"
-                        style={{
-                            width: index === currentSlide ? "48px" : "20px",
-                            height: "2px",
-                            background: index === currentSlide ? slide.accent : "rgba(255,255,255,0.3)",
-                            transition: "width 0.5s cubic-bezier(0.4,0,0.2,1), background 0.8s",
-                            cursor: "pointer",
-                            border: "none",
-                            padding: 0,
-                        }}
-                    />
-                ))}
+            <div className="absolute bottom-9 left-4 right-4 z-30 flex justify-center md:hidden">
+                <div className="flex gap-3">
+                    <button onClick={handlePrev} aria-label="Previous slide" className="glass-card flex h-10 w-10 items-center justify-center rounded-full text-white">
+                        <ChevronLeft size={16} />
+                    </button>
+                    <button onClick={handleNext} aria-label="Next slide" className="glass-card flex h-10 w-10 items-center justify-center rounded-full text-white">
+                        <ChevronRight size={16} />
+                    </button>
+                </div>
             </div>
+
+            {/* Bottom progress indicators */}
+            <div className="absolute bottom-9 left-1/2 z-30 hidden -translate-x-1/2 md:block">
+                <LiquidGlassCard className="flex items-center gap-4 rounded-full px-6 py-3.5">
+                    {SLIDES.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => {
+                                setIsAutoPlaying(false);
+                                goToSlide(index);
+                            }}
+                            aria-label={`Go to slide ${index + 1}`}
+                            className="relative overflow-hidden rounded-full"
+                            style={{
+                                width: index === currentSlide ? "40px" : "16px",
+                                height: "3px",
+                                background:
+                                    index === currentSlide
+                                        ? slide.accent
+                                        : "rgba(255,255,255,0.28)",
+                                transition:
+                                    "width 0.5s cubic-bezier(0.4,0,0.2,1), background 0.8s",
+                                cursor: "pointer",
+                                border: "none",
+                                padding: 0,
+                            }}
+                        />
+                    ))}
+                </LiquidGlassCard>
+            </div>
+
+            {/* Liquid divider flowing into the next section */}
+            <LiquidDivider />
 
             {/* Loading shimmer overlay */}
             {!ready[currentSlide] && (
                 <div
                     className="absolute inset-0 z-40"
                     style={{
-                        background: "linear-gradient(90deg, #111 25%, #1e1e1e 50%, #111 75%)",
+                        background: "linear-gradient(90deg, #020617 25%, #0b1220 50%, #020617 75%)",
                         backgroundSize: "200% 100%",
                         animation: "shimmer 1.5s infinite",
                     }}

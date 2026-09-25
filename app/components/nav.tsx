@@ -1,137 +1,216 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { gsap, useGSAP, ScrollTrigger } from "./partials/gsap";
+import { LiquidGlassCard } from "./partials/liquid-glass";
+
+const ROUTES = [
+    { id: 1, nav: "Home", route: "/" },
+    { id: 2, nav: "About", route: "/about" },
+    { id: 3, nav: "Our Projects", route: "/projects" },
+];
 
 export default function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const pathname = usePathname();
 
-  const routes = [
-    {
-      id: 1,
-      nav: "Home",
-      route: "/"
-    },
-    {
-      id: 2,
-      nav: "About",
-      route: "/about"
-    },
-    {
-      id: 3,
-      nav: "Our Projects",
-      route: "/projects"
-    }
-  ];
+    const navRef = useRef<HTMLDivElement>(null);
+    const rowRef = useRef<HTMLDivElement>(null);
+    const indicatorRef = useRef<HTMLSpanElement>(null);
 
-  const pathname = usePathname();
-  return (
-    <nav className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <img src="/images/nextlogo.svg" alt="NextDev Logo" className="h-8 w-8" />
-            <span className="text-2xl font-bold bg-linear-to-r from-teal-300 to-blue-500 bg-clip-text text-transparent">
-              NextDev.
-            </span>
-          </div>
+    /* Entrance + scroll-driven tightening */
+    useGSAP(
+        () => {
+            const el = navRef.current;
+            if (!el) return;
 
-
-          <div className="hidden md:flex space-x-8">
-            {routes.map((item) => {
-              const isActive = pathname === item.route;
-
-              return (
-                <Link
-                  key={item.id}
-                  href={item.route}
-                  className={`
-              relative transition-colors duration-300
-              ${isActive ? "text-white" : "text-white/80 hover:text-white"}
-              group
-            `}
-                >
-                  {item.nav}
-
-                  {/* Active underline / hover animation */}
-                  <span
-                    className={`
-                absolute left-0 bottom-[-4px] h-[2px] w-full rounded-full
-                bg-white transition-all duration-300
-                ${isActive
-                        ? "scale-x-100 opacity-100"
-                        : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"
-                      }
-              `}
-                  ></span>
-                </Link>
-              );
-            })}
-          </div>
-
-          <a href="/contact">
-            <button className="hidden md:block px-6 py-2 bg-linear-to-r from-blue-500 to-teal-300 text-white rounded-full hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
-              Get Started
-            </button>
-          </a>
-
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-white"
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {
-        menuOpen && (
-          <div className="md:hidden bg-black/40 backdrop-blur-lg border-t border-white/10">
-            <div className="px-4 py-4 space-y-3">
-              {routes.map((item) => {
-                const isActive = pathname === item.route;
-
-                return (
-                  <a
-                    key={item.id}
-                    href={item.route}
-                    className={`
-              block relative text-lg transition-colors duration-300
-              ${isActive
-                        ? "text-white font-semibold"
-                        : "text-white/80 hover:text-white"
-                      }
-              group
-            `}
-                  >
-                    {item.nav}
-
-                    {/* Active or hover underline */}
-                    <span
-                      className={`
-                absolute left-0 bottom-[-2px] h-[2px] w-full rounded-full
-                bg-white transition-all duration-300
-                ${isActive
-                          ? "scale-x-100 opacity-100"
-                          : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"
-                        }
-              `}
-                    ></span>
-                  </a>
+            const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+            if (!reduced) {
+                gsap.fromTo(
+                    el,
+                    { yPercent: -140, autoAlpha: 0 },
+                    { yPercent: 0, autoAlpha: 1, duration: 1, ease: "power3.out", delay: 0.1 }
                 );
-              })}
+            }
 
-              <a href="/contact/">
-                {" "}
-                <button className="w-full px-6 py-2 bg-linear-to-r from-purple-500 to-pink-500 text-white rounded-full">
-                  Get Started
-                </button>
-              </a>
+            ScrollTrigger.create({
+                start: () => 40,
+                end: "max",
+                onUpdate: (self) => {
+                    const p = Math.min(1, self.progress * 3);
+                    el.style.background = `linear-gradient(150deg, rgba(15,23,42,${0.45 + p * 0.5}), rgba(2,6,23,${0.5 + p * 0.5}))`;
+                    el.style.borderColor = `rgba(255,255,255,${0.14 + p * 0.1})`;
+                    el.style.boxShadow = `0 ${10 + p * 16}px ${20 + p * 30}px rgba(0,0,0,${0.25 + p * 0.5}), inset 0 1px 0 rgba(255,255,255,${0.2 + p * 0.15})`;
+                },
+            });
+        },
+        { scope: navRef }
+    );
+
+    /* Sliding liquid-droplet active indicator */
+    useGSAP(
+        () => {
+            const row = rowRef.current;
+            const droplet = indicatorRef.current;
+            const parent = navRef.current;
+            if (!row || !droplet || !parent) return;
+
+            const links = Array.from(row.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"));
+
+            const place = (target: HTMLAnchorElement | null) => {
+                let node = target;
+                if (!node) {
+                    node = links.find((l) => l.dataset.navLink === pathname) ?? links[0] ?? null;
+                }
+                if (!node) return;
+                const rowRect = row.getBoundingClientRect();
+                const r = node.getBoundingClientRect();
+                gsap.to(droplet, {
+                    x: r.left - rowRect.left,
+                    width: r.width,
+                    duration: 0.55,
+                    ease: "power3.out",
+                });
+            };
+
+            place(null);
+
+            const onHover = (e: MouseEvent) => {
+                const t = (e.target as HTMLElement).closest<HTMLAnchorElement>("[data-nav-link]");
+                if (t) place(t);
+            };
+            const onLeave = () => place(null);
+            const onResize = () => place(null);
+
+            row.addEventListener("mouseover", onHover);
+            row.addEventListener("pointerleave", onLeave);
+            window.addEventListener("resize", onResize);
+
+            return () => {
+                row.removeEventListener("mouseover", onHover);
+                row.removeEventListener("pointerleave", onLeave);
+                window.removeEventListener("resize", onResize);
+            };
+        },
+        { scope: navRef, dependencies: [pathname] }
+    );
+
+    return (
+        <header className="fixed inset-x-0 top-4 z-50 px-4">
+            <LiquidGlassCard
+                ref={navRef}
+                className="mx-auto flex max-w-4xl items-center justify-between gap-4 rounded-full border-white/20 px-4 py-2.5 md:px-6"
+            >
+                {/* Brand */}
+                <Link href="/" className="flex items-center gap-2.5">
+                    <span className="glass-card flex h-9 w-9 items-center justify-center rounded-full p-1.5">
+                        <img src="/images/nextlogo.svg" alt="NextDev Logo" className="h-5 w-5" />
+                    </span>
+                    <span className="bg-linear-to-r from-teal-300 to-blue-500 bg-clip-text text-xl font-bold text-transparent md:text-2xl">
+                        NextDev.
+                    </span>
+                </Link>
+
+                {/* Desktop links + droplet */}
+                <div ref={rowRef} className="relative hidden items-center md:flex">
+                    <span
+                        ref={indicatorRef}
+                        aria-hidden
+                        className="pointer-events-none absolute bottom-0 top-0 rounded-full border border-white/25 bg-white/10 backdrop-blur-md"
+                        style={{ left: 0, width: 40 }}
+                    />
+                    {ROUTES.map((item) => {
+                        const isActive = pathname === item.route;
+                        return (
+                            <Link
+                                key={item.id}
+                                href={item.route}
+                                data-nav-link={item.route}
+                                className={`relative z-10 rounded-full px-4 py-1.5 text-sm transition-colors duration-300 ${
+                                    isActive ? "text-white" : "text-white/75 hover:text-white"
+                                }`}
+                            >
+                                {item.nav}
+                            </Link>
+                        );
+                    })}
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <a href="/contact" className="hidden md:block">
+                        <button className="glass-card rounded-full px-5 py-2 text-sm font-medium text-white transition-transform duration-300 hover:scale-105">
+                            Get Started
+                        </button>
+                    </a>
+
+                    <button
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        aria-label="Toggle menu"
+                        className="glass-card flex h-10 w-10 items-center justify-center rounded-full text-white md:hidden"
+                    >
+                        {menuOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
+                </div>
+            </LiquidGlassCard>
+
+            {/* Mobile dropdown */}
+            {menuOpen && <MobileMenu pathname={pathname} />}
+        </header>
+    );
+}
+
+function MobileMenu({ pathname }: { pathname: string }) {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useGSAP(
+        () => {
+            const el = ref.current;
+            if (!el) return;
+            const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+            if (reduced) {
+                gsap.set(el, { autoAlpha: 1 });
+                return;
+            }
+            gsap.fromTo(
+                el,
+                { autoAlpha: 0, y: -16 },
+                { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" }
+            );
+        },
+        { scope: ref }
+    );
+
+    return (
+        <div
+            ref={ref}
+            className="mx-auto mt-3 max-w-4xl rounded-3xl border border-white/20 bg-slate-950/40 p-4 opacity-0 backdrop-blur-2xl md:hidden"
+            style={{ boxShadow: "0 24px 60px -20px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.25)" }}
+        >
+            <div className="space-y-2">
+                {ROUTES.map((item) => {
+                    const isActive = pathname === item.route;
+                    return (
+                        <a
+                            key={item.id}
+                            href={item.route}
+                            className={`block rounded-2xl px-4 py-3 text-lg transition-colors duration-300 ${
+                                isActive
+                                    ? "bg-white/10 text-white"
+                                    : "text-white/75 hover:text-white"
+                            }`}
+                        >
+                            {item.nav}
+                        </a>
+                    );
+                })}
+                <a href="/contact/">
+                    <button className="mt-2 w-full rounded-2xl bg-linear-to-r from-purple-500 to-pink-500 px-6 py-3 text-white">
+                        Get Started
+                    </button>
+                </a>
             </div>
-          </div>
-        )
-      }
-    </nav >
-  );
+        </div>
+    );
 }
